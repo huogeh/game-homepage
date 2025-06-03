@@ -13,3 +13,4 @@ function showSection(name) {
   document.getElementById('thanksSection').style.display = name === 'thanks' ? 'block' : 'none';
   document.getElementById('charactersSection').style.display = name === 'characters' ? 'block' : 'none';
 }
+document.getElementById("gameContainer").style.display = "flex";
