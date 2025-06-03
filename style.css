@@ -160,3 +160,28 @@ footer {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+#rankBoard {
+  background-color: #222;
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 6px;
+  max-width: 200px;
+}
+
+#rankBoard h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: gold;
+}
+
+#rankList {
+  list-style: decimal;
+  padding-left: 20px;
+  margin: 0;
+}
+
+#rankList li {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 4px;
+}
