@@ -185,3 +185,9 @@ footer {
   color: white;
   margin-bottom: 4px;
 }
+#gameContainer {
+  display: none;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+}
