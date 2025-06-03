@@ -95,6 +95,9 @@
   </footer>
 
   <script>
+    const eatSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_7745a9df84.mp3'); // 免版权音效
+    let particles = [];
+
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas?.getContext("2d");
     const size = 20;
@@ -138,18 +141,27 @@
     }
 
     function update() {
+      if (!ctx) return;
       if (isPaused) return;
-      player.x += direction.x * size;
-      player.y += direction.y * size;
-
-      if (player.x < 0 || player.x >= canvas.width || player.y < 0 || player.y >= canvas.height) {
-        clearInterval(interval);
-        alert("游戏结束！最终得分：" + score);
-        returnHome();
-        return;
-      }
-
+      drawGrid();
+      drawFruit();
+      drawPlayer();
+      drawParticles();
+      updateParticles();
       if (player.x === fruit.x && player.y === fruit.y) {
+        eatSound.currentTime = 0;
+        eatSound.play();
+        createExplosion(player.x + size / 2, player.y + size / 2);
+        // 🌟 粒子爆炸反馈
+        for (let i = 0; i < 10; i++) {
+          const px = player.x + Math.random() * size - size / 2;
+          const py = player.y + Math.random() * size - size / 2;
+          const radius = 2 + Math.random() * 3;
+          ctx.beginPath();
+          ctx.arc(px, py, radius, 0, 2 * Math.PI);
+          ctx.fillStyle = 'rgba(255, 255, 0, 0.8)';
+          ctx.fill();
+        }
         // 吃到果子的反馈动画
         ctx.fillStyle = "yellow";
         ctx.fillRect(player.x, player.y, size, size);
@@ -205,6 +217,37 @@
       document.getElementById("thanksSection").style.display = section === "thanks" ? "block" : "none";
       document.getElementById("charactersSection").style.display = section === "characters" ? "block" : "none";
       document.getElementById("gameContainer").style.display = "none";
+    }
+
+    function createExplosion(x, y) {
+      for (let i = 0; i < 12; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          alpha: 1.0,
+          radius: 2 + Math.random() * 2
+        });
+      }
+    }
+
+    function updateParticles() {
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.03;
+      });
+      particles = particles.filter(p => p.alpha > 0);
+    }
+
+    function drawParticles() {
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255, 255, 0, ${p.alpha})`;
+        ctx.fill();
+      });
     }
   </script>
 </body>
