@@ -6,9 +6,12 @@ body {
   color: #333;
 }
 header {
-  background: #4A90E2;   /* 蓝色系 */
-  color: white;
+  background: #4A90E2; 
+  color: #fff;
+  padding: 1em;
+  text-align: center;
 }
+
 
 nav a {
   margin: 0 15px;
