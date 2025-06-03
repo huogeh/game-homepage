@@ -1,3 +1,4 @@
+/* 基础样式 */
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
@@ -5,7 +6,7 @@ body {
   color: #f0f0f0;
 }
 
-/* 顶部 header，右移并左右分布 */
+/* Header 顶部导航 */
 header {
   background: #2a2a2a;
   color: #f0f0f0;
@@ -28,13 +29,13 @@ nav a {
   font-size: 1em;
 }
 
-/* 主体结构布局 */
+/* 主体结构 */
 .main-container {
   display: flex;
   min-height: 100vh;
 }
 
-/* 左侧功能栏 */
+/* 左侧栏 */
 .sidebar {
   width: 180px;
   background: #2a2a2a;
@@ -58,7 +59,7 @@ nav a {
   background: #666;
 }
 
-/* 主体内容区域（白底） */
+/* 主内容区域 */
 .content {
   flex-grow: 1;
   padding: 0;
@@ -66,7 +67,7 @@ nav a {
   color: #222;
 }
 
-/* 顶部横幅 Banner，无缝对齐 */
+/* 顶部横幅 Banner */
 .banner {
   background: url('背景图.png') center/cover no-repeat;
   color: white;
@@ -95,25 +96,24 @@ nav a {
   background-color: #666;
 }
 
-/* 游戏简介区域为深灰背景 */
+/* 游戏简介 intro */
 .intro {
-  max-width: 800px;         /* ✅ 控制宽度，避免撑满全屏 */
-  margin: 40px auto;        /* ✅ 居中 + 上下间距 */
-  background: #2a2a2a;      /* ✅ 深灰背景 */
+  max-width: 800px;
+  margin: 40px auto;
+  background: #2a2a2a;
   color: #f0f0f0;
   padding: 30px 20px;
-  border-radius: 16px;      /* ✅ 圆角效果 */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* ✅ 阴影可选增强层次感 */
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
-/* 角色展示 */
+/* 角色展示区域 */
 .characters {
   padding: 40px 20px;
   text-align: center;
 }
 
-/* 卡片布局 */
 .card-grid {
   display: flex;
   justify-content: center;
@@ -135,7 +135,7 @@ nav a {
   border-radius: 8px;
 }
 
-/* 页脚 */
+/* 页脚 Footer */
 footer {
   text-align: center;
   padding: 20px;
@@ -143,7 +143,8 @@ footer {
   color: white;
   margin-top: 40px;
 }
-/* ✅ 可复用卡片风格模块：intro / 图鉴 / 鸣谢 */
+
+/* 卡片内容复用模块 */
 .card-section {
   max-width: 800px;
   margin: 40px auto;
@@ -160,12 +161,16 @@ footer {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* 排行榜 */
 #rankBoard {
   background-color: #222;
   border: 1px solid #555;
   padding: 10px;
   border-radius: 6px;
   max-width: 200px;
+  color: white;
+  font-family: monospace;
 }
 
 #rankBoard h3 {
@@ -185,9 +190,30 @@ footer {
   color: white;
   margin-bottom: 4px;
 }
+
+/* 🎮 游戏区融合更新 */
 #gameContainer {
   display: none;
-  flex-direction: row;
-  gap: 40px;
+  justify-content: center;      /* ✅ 居中 canvas 和排行榜 */
   align-items: flex-start;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
+
+#gameCanvas {
+  background: #333;
+  border: 2px solid #888;
+  width: 600px;
+  height: 600px;
+  display: block;
+  border-radius: 8px;
+}
+
+.game-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
