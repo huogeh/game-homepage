@@ -78,6 +78,14 @@
         <h2>HOGE GAMES - 迷你游戏</h2>
         <div id="scoreBoard">积分：0</div>
         <canvas id="gameCanvas" width="400" height="400" style="background: #333; border: 2px solid #888;"></canvas>
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+          <button onclick="togglePause()" style="padding: 10px 20px; font-size: 16px; background-color: #444; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            ⏸ 暂停 / ▶ 继续
+          </button>
+          <button onclick="returnHome()" style="padding: 10px 20px; font-size: 16px; background-color: #444; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            🔙 返回主页
+          </button>
+        </div>
       </section>
     </main>
   </div>
@@ -97,6 +105,7 @@
     let interval;
     let moveSpeed = 200;
     let fruitValue = 1;
+    let isPaused = false;
 
     function drawGrid() {
       if (!ctx) return;
@@ -129,16 +138,23 @@
     }
 
     function update() {
+      if (isPaused) return;
       player.x += direction.x * size;
       player.y += direction.y * size;
 
       if (player.x < 0 || player.x >= canvas.width || player.y < 0 || player.y >= canvas.height) {
         clearInterval(interval);
         alert("游戏结束！最终得分：" + score);
+        returnHome();
         return;
       }
 
       if (player.x === fruit.x && player.y === fruit.y) {
+        // 吃到果子的反馈动画
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(player.x, player.y, size, size);
+        setTimeout(() => drawPlayer(), 100);
+
         score += fruitValue;
         fruitValue += 1;
         document.getElementById("scoreBoard").textContent = "积分：" + score;
@@ -148,6 +164,10 @@
       drawGrid();
       drawFruit();
       drawPlayer();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
     }
 
     document.addEventListener("keydown", (e) => {
@@ -167,10 +187,17 @@
       direction = { x: 1, y: 0 };
       score = 0;
       fruitValue = 1;
+      isPaused = false;
       document.getElementById("scoreBoard").textContent = "积分：0";
       randomFruit();
       clearInterval(interval);
       interval = setInterval(update, moveSpeed);
+    }
+
+    function returnHome() {
+      clearInterval(interval);
+      document.getElementById("gameContainer").style.display = "none";
+      document.getElementById("homeSection").style.display = "block";
     }
 
     function showSection(section) {
