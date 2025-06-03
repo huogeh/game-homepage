@@ -5,24 +5,36 @@ body {
   color: #f0f0f0;
 }
 
+/* 顶部 header，右移并左右分布 */
 header {
   background: #2a2a2a;
   color: #f0f0f0;
-  padding: 1em;
-  text-align: center;
+  padding: 1em 2em;
+  margin-left: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
 }
 
 nav a {
-  margin: 0 15px;
+  margin: 0 10px;
   color: #f0f0f0;
   text-decoration: none;
+  font-size: 1em;
 }
 
+/* 主体结构布局 */
 .main-container {
   display: flex;
   min-height: 100vh;
 }
 
+/* 左侧功能栏 */
 .sidebar {
   width: 180px;
   background: #2a2a2a;
@@ -46,14 +58,15 @@ nav a {
   background: #666;
 }
 
+/* 主体内容区域（白底） */
 .content {
   flex-grow: 1;
-  padding: 0; /* 关键：让 banner 顶部无缝贴合 */
+  padding: 0;
   background: #ffffff;
   color: #222;
 }
 
-/* ✅ Banner 样式贴边修复 */
+/* 顶部横幅 Banner，无缝对齐 */
 .banner {
   background: url('images/背景图.jpg') center/cover no-repeat;
   color: white;
@@ -82,7 +95,7 @@ nav a {
   background-color: #666;
 }
 
-/* ✅ intro 区域设为深灰背景 */
+/* 游戏简介区域为深灰背景 */
 .intro {
   background: #2a2a2a;
   color: #f0f0f0;
@@ -90,11 +103,13 @@ nav a {
   text-align: center;
 }
 
+/* 角色展示 */
 .characters {
   padding: 40px 20px;
   text-align: center;
 }
 
+/* 卡片布局 */
 .card-grid {
   display: flex;
   justify-content: center;
@@ -116,6 +131,7 @@ nav a {
   border-radius: 8px;
 }
 
+/* 页脚 */
 footer {
   text-align: center;
   padding: 20px;
