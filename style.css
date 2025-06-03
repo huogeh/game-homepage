@@ -68,7 +68,7 @@ nav a {
 
 /* 顶部横幅 Banner，无缝对齐 */
 .banner {
-  background: url('images/背景图.jpg') center/cover no-repeat;
+  background: url('images/背景图.png') center/cover no-repeat;
   color: white;
   text-align: center;
   padding: 80px 20px;
