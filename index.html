@@ -94,161 +94,183 @@
     <p>© 2025 HOGE GAMES开发组 | 联系我们: game@domain.com</p>
   </footer>
 
-  <script>
-    const eatSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_7745a9df84.mp3'); // 免版权音效
-    let particles = [];
+ <script>
+  const eatSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_7745a9df84.mp3');
+  let particles = [];
 
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas?.getContext("2d");
-    const size = 20;
-    let player = { x: 0, y: 0 };
-    let direction = { x: 1, y: 0 };
-    let fruit = { x: 0, y: 0 };
-    let score = 0;
-    let interval;
-    let moveSpeed = 200;
-    let fruitValue = 1;
-    let isPaused = false;
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas?.getContext("2d");
+  const size = 20;
+  let player = { x: 0, y: 0 };
+  let direction = { x: 1, y: 0 };
+  let fruit = { x: 0, y: 0 };
+  let score = 0;
+  let interval;
+  let moveSpeed = 200;
+  let fruitValue = 1;
+  let isPaused = false;
 
-    function drawGrid() {
-      if (!ctx) return;
-      ctx.fillStyle = "#333";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#444";
-      for (let x = 0; x < canvas.width; x += size) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += size) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-      }
+  function drawGrid() {
+    if (!ctx) return;
+    ctx.fillStyle = "#333";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#444";
+    for (let x = 0; x < canvas.width; x += size) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
     }
-
-    function drawPlayer() {
-      if (!ctx) return;
-      ctx.fillStyle = "cyan";
-      ctx.fillRect(player.x, player.y, size, size);
+    for (let y = 0; y < canvas.height; y += size) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
+  }
 
-    function drawFruit() {
-      if (!ctx) return;
-      ctx.fillStyle = "lime";
-      ctx.fillRect(fruit.x, fruit.y, size, size);
-    }
+  function drawPlayer() {
+    if (!ctx) return;
+    ctx.fillStyle = "cyan";
+    ctx.fillRect(player.x, player.y, size, size);
+  }
 
-    function randomFruit() {
-      fruit.x = Math.floor(Math.random() * (canvas.width / size)) * size;
-      fruit.y = Math.floor(Math.random() * (canvas.height / size)) * size;
-    }
+  function drawFruit() {
+    if (!ctx) return;
+    ctx.fillStyle = "lime";
+    ctx.fillRect(fruit.x, fruit.y, size, size);
+  }
 
-    function update() {
-      if (!ctx) return;
-      if (isPaused) return;
-      drawGrid();
-      drawFruit();
-      drawPlayer();
-      drawParticles();
-      updateParticles();
-      if (player.x === fruit.x && player.y === fruit.y) {
-        eatSound.currentTime = 0;
-        eatSound.play();
-        createExplosion(player.x + size / 2, player.y + size / 2);
-        // 🌟 粒子爆炸反馈
-        for (let i = 0; i < 10; i++) {
-          const px = player.x + Math.random() * size - size / 2;
-          const py = player.y + Math.random() * size - size / 2;
-          const radius = 2 + Math.random() * 3;
-          ctx.beginPath();
-          ctx.arc(px, py, radius, 0, 2 * Math.PI);
-          ctx.fillStyle = 'rgba(255, 255, 0, 0.8)';
-          ctx.fill();
-        }
-        // 吃到果子的反馈动画
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(player.x, player.y, size, size);
-        setTimeout(() => drawPlayer(), 100);
-
-        score += fruitValue;
-        fruitValue += 1;
-        document.getElementById("scoreBoard").textContent = "积分：" + score;
-        randomFruit();
-      }
-
-      drawGrid();
-      drawFruit();
-      drawPlayer();
-    }
-
-    function togglePause() {
-      isPaused = !isPaused;
-    }
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "w") direction = { x: 0, y: -1 };
-      else if (e.key === "s") direction = { x: 0, y: 1 };
-      else if (e.key === "a") direction = { x: -1, y: 0 };
-      else if (e.key === "d") direction = { x: 1, y: 0 };
+  function drawParticles() {
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 255, 0, ${p.alpha})`;
+      ctx.fill();
     });
+  }
 
-    function startGame() {
-      document.getElementById("homeSection").style.display = "none";
-      document.getElementById("thanksSection").style.display = "none";
-      document.getElementById("charactersSection").style.display = "none";
-      document.getElementById("gameContainer").style.display = "flex";
+  function updateParticles() {
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.03;
+    });
+    particles = particles.filter(p => p.alpha > 0);
+  }
 
-      player = { x: 0, y: 0 };
-      direction = { x: 1, y: 0 };
-      score = 0;
-      fruitValue = 1;
-      isPaused = false;
-      document.getElementById("scoreBoard").textContent = "积分：0";
+  function createExplosion(x, y) {
+    for (let i = 0; i < 12; i++) {
+      particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
+        alpha: 1.0,
+        radius: 2 + Math.random() * 2
+      });
+    }
+  }
+
+  function randomFruit() {
+    fruit.x = Math.floor(Math.random() * (canvas.width / size)) * size;
+    fruit.y = Math.floor(Math.random() * (canvas.height / size)) * size;
+  }
+
+  function update() {
+    if (!ctx || isPaused) return;
+
+    // 移动
+    player.x += direction.x * size;
+    player.y += direction.y * size;
+
+    // 边界检测
+    if (player.x < 0 || player.x >= canvas.width || player.y < 0 || player.y >= canvas.height) {
+      endGame();
+      return;
+    }
+
+    // 吃到果子
+    if (player.x === fruit.x && player.y === fruit.y) {
+      eatSound.currentTime = 0;
+      eatSound.play();
+      createExplosion(player.x + size / 2, player.y + size / 2);
+      score += fruitValue++;
+      document.getElementById("scoreBoard").textContent = "积分：" + score;
       randomFruit();
-      clearInterval(interval);
-      interval = setInterval(update, moveSpeed);
     }
 
-    function returnHome() {
-      clearInterval(interval);
-      document.getElementById("gameContainer").style.display = "none";
-      document.getElementById("homeSection").style.display = "block";
-    }
+    updateParticles();
+    drawGrid();
+    drawFruit();
+    drawPlayer();
+    drawParticles();
+  }
 
-    function showSection(section) {
-      document.getElementById("homeSection").style.display = section === "home" ? "block" : "none";
-      document.getElementById("thanksSection").style.display = section === "thanks" ? "block" : "none";
-      document.getElementById("charactersSection").style.display = section === "characters" ? "block" : "none";
-      document.getElementById("gameContainer").style.display = "none";
-    }
+  function togglePause() {
+    isPaused = !isPaused;
+  }
 
-    function createExplosion(x, y) {
-      for (let i = 0; i < 12; i++) {
-        particles.push({
-          x: x,
-          y: y,
-          vx: (Math.random() - 0.5) * 4,
-          vy: (Math.random() - 0.5) * 4,
-          alpha: 1.0,
-          radius: 2 + Math.random() * 2
-        });
-      }
-    }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "w" && direction.y === 0) direction = { x: 0, y: -1 };
+    else if (e.key === "s" && direction.y === 0) direction = { x: 0, y: 1 };
+    else if (e.key === "a" && direction.x === 0) direction = { x: -1, y: 0 };
+    else if (e.key === "d" && direction.x === 0) direction = { x: 1, y: 0 };
+  });
 
-    function updateParticles() {
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.03;
-      });
-      particles = particles.filter(p => p.alpha > 0);
-    }
+  function startGame() {
+    document.getElementById("homeSection").style.display = "none";
+    document.getElementById("thanksSection").style.display = "none";
+    document.getElementById("charactersSection").style.display = "none";
+    document.getElementById("gameContainer").style.display = "flex";
 
-    function drawParticles() {
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 255, 0, ${p.alpha})`;
-        ctx.fill();
-      });
-    }
-  </script>
+    player = { x: 0, y: 0 };
+    direction = { x: 1, y: 0 };
+    score = 0;
+    fruitValue = 1;
+    isPaused = false;
+    document.getElementById("scoreBoard").textContent = "积分：0";
+    randomFruit();
+    clearInterval(interval);
+    interval = setInterval(update, moveSpeed);
+    loadScores(); // 初始化排行榜
+  }
+
+  function returnHome() {
+    clearInterval(interval);
+    document.getElementById("gameContainer").style.display = "none";
+    document.getElementById("homeSection").style.display = "block";
+  }
+
+  function showSection(section) {
+    document.getElementById("homeSection").style.display = section === "home" ? "block" : "none";
+    document.getElementById("thanksSection").style.display = section === "thanks" ? "block" : "none";
+    document.getElementById("charactersSection").style.display = section === "characters" ? "block" : "none";
+    document.getElementById("gameContainer").style.display = "none";
+  }
+
+  function endGame() {
+    clearInterval(interval);
+    alert("游戏结束！你的得分是：" + score);
+    saveScore();
+    loadScores();
+    returnHome();
+  }
+
+  function saveScore(name = "玩家") {
+    let scores = JSON.parse(localStorage.getItem("hoge_scores") || "[]");
+    scores.push({ name, score });
+    scores.sort((a, b) => b.score - a.score);
+    scores = scores.slice(0, 10); // 保留前10名
+    localStorage.setItem("hoge_scores", JSON.stringify(scores));
+  }
+
+  function loadScores() {
+    const list = document.getElementById("rankList");
+    if (!list) return;
+    list.innerHTML = "";
+    let scores = JSON.parse(localStorage.getItem("hoge_scores") || "[]");
+    scores.forEach((item, i) => {
+      const li = document.createElement("li");
+      li.textContent = `${i + 1}. ${item.name}：${item.score}`;
+      list.appendChild(li);
+    });
+  }
+</script>
+
 </body>
 </html>
