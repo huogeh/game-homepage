@@ -6,12 +6,11 @@ body {
   color: #333;
 }
 header {
-  background: #4A90E2; 
+  background: #222;  
   color: #fff;
   padding: 1em;
   text-align: center;
 }
-
 
 nav a {
   margin: 0 15px;
