@@ -4,12 +4,25 @@
   <meta charset="UTF-8">
   <title>HOGE GAMES</title>
   <link rel="stylesheet" href="style.css">
-  <title>HOGE GAMES - HTML5动作小游戏</title>
-<meta name="description" content="HOGE GAMES 是一款 HTML5 动作小游戏，包含角色图鉴、积分系统和排行榜。">
-<meta name="keywords" content="HOGE GAMES, HTML5小游戏, 动作游戏, 在线游戏, 角色图鉴, 排行榜">
-<meta name="author" content="霍格">
-<meta name="robots" content="index, follow">
+  <meta name="description" content="HOGE GAMES 是一款 HTML5 动作小游戏，包含角色图鉴、积分系统和排行榜。">
+  <meta name="keywords" content="HOGE GAMES, HTML5小游戏, 动作游戏, 在线游戏, 角色图鉴, 排行榜">
+  <meta name="author" content="霍格">
+  <meta name="robots" content="index, follow">
+  <style>
+    /* 只加这段确保排行榜在右边，游戏居中居左 */
+    #gameContainer {
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+      gap: 60px;
+    }
 
+    #gameCanvas {
+      width: 600px;
+      height: 600px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -35,7 +48,7 @@
           <p>体验战斗、剧情与成长的完美融合！</p>
           <button onclick="startGame()">▶ 立即开始</button>
         </section>
-        <section id="about" class="card-section">
+        <section id="about" class="intro">
           <h2>游戏简介</h2>
           <p>这是一款 HTML5 动作小游戏……</p>
         </section>
@@ -66,27 +79,22 @@
       </section>
 
       <!-- 游戏 + 排行榜 -->
-      <section id="gameContainer" style="display: none; flex-direction: row; display: flex; gap: 40px; align-items: flex-start;">
-
+      <section id="gameContainer">
         <!-- 游戏区域 -->
         <div style="display: flex; flex-direction: column; align-items: center;">
           <h2>HOGE GAMES - 迷你游戏</h2>
           <div id="scoreBoard">积分：0</div>
-          <canvas id="gameCanvas" width="400" height="400" style="background: #333; border: 2px solid #888;"></canvas>
+          <canvas id="gameCanvas" width="600" height="600" style="background: #333; border: 2px solid #888;"></canvas>
           <div style="margin-top: 20px; display: flex; gap: 10px;">
-            <button onclick="togglePause()" style="padding: 10px 20px; font-size: 16px; background-color: #444; color: white; border: none; border-radius: 6px; cursor: pointer;">
-              ⏸ 暂停 / ▶ 继续
-            </button>
-            <button onclick="returnHome()" style="padding: 10px 20px; font-size: 16px; background-color: #444; color: white; border: none; border-radius: 6px; cursor: pointer;">
-              🔙 返回主页
-            </button>
+            <button onclick="togglePause()">⏸ 暂停 / ▶ 继续</button>
+            <button onclick="returnHome()">🔙 返回主页</button>
           </div>
         </div>
 
         <!-- 排行榜区域 -->
-        <div id="rankBoard" style="background: #222; padding: 15px; border-radius: 6px; min-width: 200px;">
-          <h3 style="color: gold;">🏆 历史积分排行榜</h3>
-          <ol id="rankList" style="color: white; font-family: monospace; padding-left: 20px;"></ol>
+        <div id="rankBoard">
+          <h3>🏆 历史积分排行榜</h3>
+          <ol id="rankList"></ol>
         </div>
       </section>
     </main>
@@ -267,13 +275,11 @@
         list.appendChild(li);
       });
     }
-    window.onload = () => {
-  window.scrollTo(0, 0);
-  document.getElementById("gameContainer").style.display = "none";
-  document.getElementById("homeSection").style.display = "block";
-};
-<link rel="stylesheet" href="style.css" />
 
+    window.onload = () => {
+      document.getElementById("gameContainer").style.display = "none";
+      document.getElementById("homeSection").style.display = "block";
+    };
   </script>
 </body>
 </html>
