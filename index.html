@@ -10,13 +10,22 @@
     <h1>咒术回战：虎杖篇</h1>
     <nav>
       <a href="#">主页</a>
-      <a href="#about">游戏介绍</a>
-      <a href="#characters">角色展示</a>
+    
       <a href="#start">开始游戏</a>
     </nav>
   </header>
+<!-- 🟩 左侧功能按钮栏 + 新内容模块（插入到 <body> 中，建议在 <header> 后） -->
+<div class="main-container">
+  <aside class="sidebar">
+    <button onclick="showSection('home')">🏠 首页</button>
+    <button onclick="showSection('thanks')">🎖 特别鸣谢</button>
+    <button onclick="showSection('characters')">🧩 角色图鉴</button>
+  </aside>
 
-  <section class="banner">
+  <main class="content">
+    <!-- 首页默认内容保持不变，包裹成一个section -->
+    <section id="homeSection">
+      <section class="banner">
     <h2>欢迎来到咒术回战</h2>
     <p>体验战斗、剧情与成长的完美融合！</p>
     <button onclick="startGame()">▶ 立即开始</button>
@@ -45,6 +54,28 @@
     </div>
   </section>
 
+    </section>
+
+    <!-- 🎖 特别鸣谢区域 -->
+    <section id="thanksSection" style="display:none">
+      <h2>特别鸣谢</h2>
+      <p>项目策划：霍格</p>
+      <p>界面设计：霍格</p>
+      <p>代码支持：ChatGPT</p>
+      <p>图形生成：DALL·E</p>
+      <p>部署支持：GitHub Pages</p>
+      <p>鸣谢所有为本项目提供帮助的朋友与灵感来源！</p>
+    </section>
+
+    <!-- 🧩 角色图鉴区域 -->
+    <section id="charactersSection" style="display:none">
+      <h2>角色图鉴</h2>
+      <p>（此处可添加角色卡片、头像等展示模块）</p>
+    </section>
+  </main>
+</div>
+
+ 
   <footer>
     <p>© 2025 咒术回战：虎杖篇开发组 | 联系我们: game@domain.com</p>
   </footer>
