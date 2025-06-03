@@ -14,63 +14,65 @@
     </nav>
   </header>
 
-  <!-- ✅ 浮动功能按钮区（放在 header 后） -->
-  <div class="floating-sidebar">
-    <button onclick="showSection('home')">🏠 首页</button>
-    <button onclick="showSection('thanks')">🎖 特别鸣谢</button>
-    <button onclick="showSection('characters')">🧩 角色图鉴</button>
+  <!-- ✅ 标准结构：左侧侧边栏 + 主体内容区 -->
+  <div class="main-container">
+    <aside class="sidebar">
+      <button onclick="showSection('home')">🏠 首页</button>
+      <button onclick="showSection('thanks')">🎖 特别鸣谢</button>
+      <button onclick="showSection('characters')">🧩 角色图鉴</button>
+    </aside>
+
+    <main class="content">
+      <!-- 首页默认内容 -->
+      <section id="homeSection">
+        <section class="banner">
+          <h2>欢迎来到咒术回战</h2>
+          <p>体验战斗、剧情与成长的完美融合！</p>
+          <button onclick="startGame()">▶ 立即开始</button>
+        </section>
+
+        <section id="about" class="intro">
+          <h2>游戏简介</h2>
+          <p>这是一款以虎杖为主角的 HTML5 动作小游戏。玩家将体验紧张刺激的战斗，与敌人之间的较量，以及与伙伴的羁绊。</p>
+        </section>
+
+        <section id="characters" class="characters">
+          <h2>角色展示</h2>
+          <div class="card-grid">
+            <div class="card">
+              <img src="images/虎杖.png" alt="虎杖悠仁">
+              <p>虎杖悠仁</p>
+            </div>
+            <div class="card">
+              <img src="images/五条.png" alt="五条悟">
+              <p>五条悟</p>
+            </div>
+            <div class="card">
+              <img src="images/宿傩.png" alt="宿傩">
+              <p>宿傩</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 🎖 特别鸣谢区域 -->
+      <section id="thanksSection" style="display:none">
+        <h2>特别鸣谢</h2>
+        <p>项目策划：霍格</p>
+        <p>界面设计：霍格</p>
+        <p>代码支持：ChatGPT</p>
+        <p>图形生成：DALL·E</p>
+        <p>部署支持：GitHub Pages</p>
+        <p>鸣谢所有为本项目提供帮助的朋友与灵感来源！</p>
+      </section>
+
+      <!-- 🧩 角色图鉴区域 -->
+      <section id="charactersSection" style="display:none">
+        <h2>角色图鉴</h2>
+        <p>（此处可添加角色卡片、头像等展示模块）</p>
+      </section>
+    </main>
   </div>
-
-  <main class="content">
-    <!-- 首页默认内容 -->
-    <section id="homeSection">
-      <section class="banner">
-        <h2>欢迎来到咒术回战</h2>
-        <p>体验战斗、剧情与成长的完美融合！</p>
-        <button onclick="startGame()">▶ 立即开始</button>
-      </section>
-
-      <section id="about" class="intro">
-        <h2>游戏简介</h2>
-        <p>这是一款以虎杖为主角的 HTML5 动作小游戏。玩家将体验紧张刺激的战斗，与敌人之间的较量，以及与伙伴的羁绊。</p>
-      </section>
-
-      <section id="characters" class="characters">
-        <h2>角色展示</h2>
-        <div class="card-grid">
-          <div class="card">
-            <img src="images/虎杖.png" alt="虎杖悠仁">
-            <p>虎杖悠仁</p>
-          </div>
-          <div class="card">
-            <img src="images/五条.png" alt="五条悟">
-            <p>五条悟</p>
-          </div>
-          <div class="card">
-            <img src="images/宿傩.png" alt="宿傩">
-            <p>宿傩</p>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- 🎖 特别鸣谢区域 -->
-    <section id="thanksSection" style="display:none">
-      <h2>特别鸣谢</h2>
-      <p>项目策划：霍格</p>
-      <p>界面设计：霍格</p>
-      <p>代码支持：ChatGPT</p>
-      <p>图形生成：DALL·E</p>
-      <p>部署支持：GitHub Pages</p>
-      <p>鸣谢所有为本项目提供帮助的朋友与灵感来源！</p>
-    </section>
-
-    <!-- 🧩 角色图鉴区域 -->
-    <section id="charactersSection" style="display:none">
-      <h2>角色图鉴</h2>
-      <p>（此处可添加角色卡片、头像等展示模块）</p>
-    </section>
-  </main>
 
   <footer>
     <p>© 2025 咒术回战：虎杖篇开发组 | 联系我们: game@domain.com</p>
