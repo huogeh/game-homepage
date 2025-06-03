@@ -8,3 +8,8 @@ function showSection(name) {
   document.getElementById('thanksSection').style.display = name === 'thanks' ? 'block' : 'none';
   document.getElementById('charactersSection').style.display = name === 'characters' ? 'block' : 'none';
 }
+function showSection(name) {
+  document.getElementById('homeSection').style.display = name === 'home' ? 'block' : 'none';
+  document.getElementById('thanksSection').style.display = name === 'thanks' ? 'block' : 'none';
+  document.getElementById('charactersSection').style.display = name === 'characters' ? 'block' : 'none';
+}
