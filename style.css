@@ -63,3 +63,33 @@ footer {
   color: white;
   margin-top: 40px;
 }
+/* 🟩 左侧栏 + 内容区布局样式 */
+.main-container {
+  display: flex;
+}
+.sidebar {
+  width: 180px;
+  background: #1e1e1e;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100vh;
+}
+.sidebar button {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.sidebar button:hover {
+  background: #666;
+}
+.content {
+  flex-grow: 1;
+  padding: 30px;
+  background: #fafafa;
+}
