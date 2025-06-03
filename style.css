@@ -97,9 +97,13 @@ nav a {
 
 /* 游戏简介区域为深灰背景 */
 .intro {
-  background: #2a2a2a;
+  max-width: 800px;         /* ✅ 控制宽度，避免撑满全屏 */
+  margin: 40px auto;        /* ✅ 居中 + 上下间距 */
+  background: #2a2a2a;      /* ✅ 深灰背景 */
   color: #f0f0f0;
-  padding: 40px 20px;
+  padding: 30px 20px;
+  border-radius: 16px;      /* ✅ 圆角效果 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* ✅ 阴影可选增强层次感 */
   text-align: center;
 }
 
