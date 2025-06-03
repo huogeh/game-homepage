@@ -79,28 +79,38 @@ footer {
   margin-top: 40px;
 }
 
-/* ✅ 浮动菜单样式 */
-.floating-sidebar {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 100;
+/* ✅ 主布局结构：侧边栏 + 内容区 */
+.main-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 180px;
+  background: #2a2a2a;
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.floating-sidebar button {
+.sidebar button {
   background: #444;
   color: #f0f0f0;
   border: none;
-  padding: 10px 16px;
+  padding: 10px;
   font-size: 14px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
-.floating-sidebar button:hover {
+.sidebar button:hover {
   background: #666;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 30px;
+  background: #ffffff;   /* ✅ 中心内容白色 */
+  color: #222;
 }
