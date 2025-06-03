@@ -216,4 +216,25 @@ footer {
   gap: 10px;
   justify-content: center;
 }
+/* 替换主要内容区域的背景图（整个白色内容区域） */
+.content {
+  flex-grow: 1;
+  padding: 0;
+  background: url('背景2.png') center top / cover no-repeat;  /* 更换背景图 */
+  color: #222;
+}
+
+/* 如果你想让内容可读性更强，加背景遮罩层效果 */
+.card-section,
+.intro,
+.characters {
+  background-color: rgba(42, 42, 42, 0.85); /* 半透明深灰遮罩层 */
+  backdrop-filter: blur(2px);
+  border-radius: 16px;
+  padding: 30px 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
